@@ -13,6 +13,7 @@ export default class Pokemon extends Component {
         loading: false,
         query: '',
         sortOrder: 'asc',
+        page: 1,
     }
 
     // gets called when the component mounts for the first time
@@ -28,6 +29,14 @@ export default class Pokemon extends Component {
         this.setState({ query: e.target.value });
     }
 
+    nextPage = async (e) => {
+        await this.setState({ page: this.state.page + 1 });
+    }
+
+    previousPage = async (e) => {
+        await this.setState({ page: this.state.page - 1 });
+    }
+
     fetchData = async () => {
         this.setState({ loading: true });
 
@@ -36,6 +45,7 @@ export default class Pokemon extends Component {
             : `https://pokedex-alchemy.herokuapp.com/api/pokedex?sort=pokemon&direction=${this.state.sortOrder}`;
 
         const data = await request.get(URL)
+
         await sleep(1200)
         // request finished, loading ends.
 
@@ -56,12 +66,19 @@ export default class Pokemon extends Component {
                 <input onChange={this.handleChange} />
                 <Sort event={this.handleSort} />
                 <button onClick={this.handleClick}>F E T C H</button>
-
-
                 {this.state.loading
                     ? <Spinner />
                     : <PokeList pokemon={this.state.pokemon} />
                 }
+                {
+                    this.state.page - 1 > 0 && (
+                        <button onClick={this.previousPage}>
+                           Prev Page ({ this.state.page -1 })
+                        </button>
+                    )}
+                <button onClick={this.nextPage}>
+                    Next Page ({ this.state.page + 1 })
+                </button>
             </div>
         )
     }
