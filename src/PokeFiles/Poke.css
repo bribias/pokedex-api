@@ -1,0 +1,25 @@
+
+.item-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.poke-full-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
+
+
+.poke-img {
+    width: 200px;
+    border: 1px solid rgb(189, 105, 214);
+    background-color: rgba(0, 128, 128, 0.384);
+    box-shadow: 2px 2px rgba(238, 130, 238, 0.589);
+    border-radius: 20px;
+}
